@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090b0e">
+  <title>SteadySight — A smarter camera</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="library.css">
+</head>
+<body>
+  <main class="app-shell">
+    <nav class="site-nav" aria-label="Main navigation"><a class="nav-brand" href="#home" data-page="home"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>SteadySight</a><div class="nav-links"><button data-page="home">Home</button><button data-page="camera">Camera</button><button data-page="library">Library</button><button data-page="profile">Profile</button><button data-page="auth" id="authNav">Log in</button></div></nav>
+    <section class="screen home-screen active" id="homeScreen" aria-labelledby="homeTitle">
+      <header class="brand"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>SteadySight</span></header>
+      <div class="home-content">
+        <div class="eyebrow"><span class="live-dot"></span> THE CAMERA THAT KEEPS UP</div>
+        <h1 id="homeTitle">Your smartphone.<br><span>A smarter camera.</span></h1>
+        <p class="home-intro">Capture smoother, better-framed videos of moving subjects.</p>
+        <div class="feature-grid">
+          <article class="feature-card"><span class="feature-icon target-icon">◎</span><h2>AI Subject Lock</h2><p>Keeps your subject in frame.</p></article>
+          <article class="feature-card"><span class="feature-icon director-icon">⌖</span><h2>AR Director</h2><p>Guides your framing in real time.</p></article>
+          <article class="feature-card"><span class="feature-icon smooth-icon">〰</span><h2>Neural Smoothing</h2><p>Helps create smoother footage.</p></article>
+        </div>
+        <button class="primary-button" id="startButton">Start Camera <span aria-hidden="true">↗</span></button>
+        <div class="prototype-note"><span class="note-line"></span> Prototype Demo <span class="note-line"></span></div>
+      </div>
+      <footer class="home-footer"><span>DESIGNED TO FOLLOW THE MOMENT</span><span>01 — 04</span></footer>
+    </section>
+
+    <section class="screen camera-screen" id="cameraScreen" aria-label="Camera" hidden>
+      <header class="camera-topbar">
+        <button class="icon-button back-button" id="cameraHomeButton" aria-label="Back to home">←</button>
+        <div class="brand camera-brand"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>SteadySight</span></div>
+        <div class="top-actions"><span class="ai-indicator" id="detectorIndicator"><i></i> AI OBJECT DETECTION: ON</span><button class="icon-button" id="settingsButton" aria-label="Camera settings">⌘</button></div>
+      </header>
+      <div class="camera-stage" id="cameraStage">
+        <video id="cameraVideo" autoplay playsinline muted aria-label="Live camera preview"></video>
+        <div class="camera-placeholder" id="cameraPlaceholder"><div class="placeholder-icon">◉</div><h2>Camera preview</h2><p>Your live camera appears here.</p></div>
+        <div class="stage-vignette"></div>
+        <div class="stage-top-meta"><span class="quality-pill">4K <b>30</b></span><span class="lens-pill">1×</span></div>
+        <div class="detector-count" id="detectorCount" aria-live="polite">Loading detector…</div>
+        <div class="lock-indicator" id="lockIndicator"><span class="lock-dot"></span><b id="lockLabel">LOCKED · PERSON</b><small>Tap another box to switch</small></div>
+        <div class="lock-point-marker" id="lockPointMarker" aria-hidden="true">+</div>
+        <div class="detected-objects" id="detectedObjects" aria-label="Detected objects"></div>
+        <div class="tracking-overlay" id="trackingOverlay" aria-label="Simulated subject tracking">
+          <div class="tracking-label"><span class="target-small">◎</span> SUBJECT LOCKED</div>
+          <div class="tracking-box"><span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span><span class="target-cross">+</span></div>
+        </div>
+        <div class="guidance" id="guidance" aria-live="polite"><span class="guidance-arrow">↑</span><span>Move Up</span></div>
+        <div class="stage-bottom-meta"><span class="status-pill"><i></i><span id="trackingStatus">AI Detection Demo</span></span><span class="stabilization-pill">✳ &nbsp; Stabilization: ON</span></div>
+        <div class="recording-badge" id="recordingBadge"><i></i> REC <b id="recordLockIndicator">LOCKED</b> <span id="recordingTimer">00:00</span></div>
+      </div>
+      <div class="camera-controls">
+        <div class="demo-row"><div><strong>Demo Mode</strong><small id="demoDescription">AI Detection Demo · max 3 objects</small></div><label class="switch"><input type="checkbox" id="demoToggle" checked aria-label="Demo Mode"><span class="switch-track"></span></label></div>
+        <div class="mode-tabs" role="tablist" aria-label="Camera mode"><button class="mode-tab selected" id="videoMode" role="tab" aria-selected="true">Video</button><button class="mode-tab" id="photoMode" role="tab" aria-selected="false">Photo</button></div>
+        <div class="shutter-row"><button class="gallery-button" id="galleryButton" aria-label="Show latest capture"><span>▧</span></button><button class="shutter-button" id="recordButton" aria-label="Start recording"><span></span></button><button class="flip-button" id="flipButton" aria-label="Flip camera">⟳</button></div>
+        <p class="control-hint" id="controlHint">Tap to start recording</p>
+      </div>
+    </section>
+
+    <section class="screen error-screen" id="errorScreen" aria-labelledby="errorTitle" hidden>
+      <header class="camera-topbar"><button class="icon-button" id="errorHomeButton" aria-label="Back to home">←</button><div class="brand camera-brand"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>SteadySight</span></div><span class="top-spacer"></span></header>
+      <div class="error-content"><div class="error-symbol">◉</div><div class="eyebrow">ONE QUICK STEP</div><h1 id="errorTitle">Camera access<br>required</h1><p>Allow camera permission in your browser to try the live prototype.</p><button class="primary-button" id="retryButton">Try Again <span aria-hidden="true">↗</span></button><button class="text-button" id="errorBackButton">Back to home</button></div>
+    </section>
+
+    <section class="screen preview-screen" id="previewScreen" aria-labelledby="previewTitle" hidden>
+      <header class="camera-topbar"><button class="icon-button" id="previewHomeButton" aria-label="Back to home">←</button><div class="brand camera-brand"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>SteadySight</span></div><span class="preview-count">YOUR CAPTURE</span></header>
+      <div class="preview-content"><div class="preview-heading"><div class="eyebrow"><span class="live-dot"></span> SMART TRACKING OUTPUT</div><h1 id="previewTitle">Smart Tracking<span>.</span></h1><p>This is the canvas-reframed video. SteadySight followed the locked subject during recording.</p></div>
+        <div class="recorded-frame"><video id="recordedVideo" controls playsinline></video><img id="recordedPhoto" alt="Captured photo" hidden><div class="video-empty" id="videoEmpty"><span>▶</span><p>Your recorded video will appear here.</p></div></div>
+        <div class="result-grid"><article class="result-card"><span class="result-check">✓</span><div><strong>Smart Tracking</strong><small>Applied to recorded video</small></div></article><article class="result-card"><span class="result-check">✓</span><div><strong>Framing Guidance</strong><small>Live preview guidance</small></div></article><article class="result-card"><span class="result-check muted-check">✳</span><div><strong>Stabilization</strong><small>Prototype indicator only</small></div></article></div>
+        <p class="prototype-disclaimer">Smart Tracking digitally crops the video around the locked subject. Stabilization is only a demo indicator.</p>
+        <div class="preview-actions"><button class="primary-button" id="saveCaptureButton">Save to Library <span aria-hidden="true">↗</span></button><button class="secondary-button" id="recordAgainButton">Record Again</button><button class="secondary-button" id="previewBackButton">Back to Home</button></div>
+      </div>
+    </section>
+    <section class="screen content-screen" id="libraryScreen" hidden><div class="content-wrap"><div class="page-heading"><div><div class="eyebrow"><span class="live-dot"></span> YOUR CAPTURES</div><h1>Library<span>.</span></h1><p>Browse, search and manage your saved moments.</p></div></div><div class="library-tools"><input id="searchInput" type="search" placeholder="Search titles and descriptions" aria-label="Search captures"><select id="typeFilter" aria-label="Filter by type"><option value="">All types</option><option value="video">Videos</option><option value="photo">Photos</option></select><select id="categoryFilter" aria-label="Filter by category"><option value="">All categories</option></select><select id="sortFilter" aria-label="Sort"><option value="newest">Newest first</option><option value="oldest">Oldest first</option></select></div><p class="page-status" id="libraryStatus" aria-live="polite"></p><div class="capture-grid" id="captureGrid"></div><div class="empty-state" id="libraryEmpty" hidden><h2>No captures found</h2><p>Save a photo or video from the camera preview to start your library.</p><button class="primary-button" data-page="camera">Open Camera <span>â†—</span></button></div></div></section>
+    <section class="screen content-screen" id="detailScreen" hidden><div class="content-wrap"><button class="text-button back-link" data-page="library">â† Back to Library</button><div id="captureDetail"></div></div></section>
+    <section class="screen content-screen" id="profileScreen" hidden><div class="content-wrap"><div class="eyebrow"><span class="live-dot"></span> YOUR ACCOUNT</div><h1>Profile<span>.</span></h1><div id="profileContent"></div></div></section>
+    <section class="screen content-screen" id="authScreen" hidden><div class="content-wrap auth-wrap"><div class="eyebrow"><span class="live-dot"></span> STEADYSIGHT ACCOUNT</div><h1 id="authHeading">Welcome back<span>.</span></h1><div class="auth-tabs"><button id="loginTab" class="selected">Log in</button><button id="registerTab">Create account</button></div><form id="authForm" class="stack-form"><label id="nameField" hidden>Name<input name="name" autocomplete="name" minlength="2" maxlength="80"></label><label>Email<input name="email" type="email" required autocomplete="email"></label><label>Password<input name="password" type="password" required minlength="8" autocomplete="current-password"></label><button class="primary-button" id="authSubmit">Log in <span>â†—</span></button></form><p class="page-status" id="authStatus" aria-live="polite"></p></div></section>
+  </main>
+  <dialog id="captureDialog" class="capture-dialog"><form id="captureForm" class="stack-form" method="dialog"><div class="eyebrow">SAVE CAPTURE</div><h2>Give this moment a home</h2><label>Title<input name="title" required maxlength="120" placeholder="A short, memorable title"></label><label>Description<textarea name="description" maxlength="2000" rows="3" placeholder="Add a few details"></textarea></label><label>Category<input name="category" required maxlength="60" placeholder="e.g. Travel, Family, Sport"></label><label>Tags<input name="tags" maxlength="300" placeholder="Separate tags with commas"></label><div class="form-actions"><button type="button" class="secondary-button" id="cancelSave">Cancel</button><button class="primary-button" id="confirmSave">Save capture <span>â†—</span></button></div></form></dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="script.js"></script><script src="library.js"></script>
+</body>
+</html>
