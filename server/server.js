@@ -13,9 +13,7 @@ const root = path.resolve(__dirname, '..');
 
 // Render: set DATA_DIR=/var/data
 // Local development: use the project's data folder.
-const dataRoot = process.env.DATA_DIR || (
-    process.env.RENDER ? '/var/data' : path.join(root, 'data')
-);
+const dataRoot = process.env.DATA_DIR || path.join(root, 'data');
 
 const dataDir = path.join(dataRoot, 'steadysight');
 const uploadDir = path.join(dataRoot, 'uploads');
